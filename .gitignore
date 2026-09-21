@@ -1,0 +1,16 @@
+# ignore build files
+/Release/
+/Debug/
+
+# IDE-specific settings
+/.settings/
+
+# Generated build artifacts
+*.elf
+*.map
+*.bin
+*.hex
+*.srec
+*.lst
+*.o
+*.d
