@@ -51,5 +51,3 @@ Project provides next configuration options in `main.c`:
 For a detailed explanation of the project, see:
 
 [HOWITWORKS.md](https://github.com/Tombays/stm32-WS2812B-led-control-through-dma/HOWITWORKS.md)
-
-
