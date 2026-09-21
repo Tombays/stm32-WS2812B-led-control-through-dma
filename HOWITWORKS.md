@@ -384,13 +384,13 @@ The complete sequence is:
 The conceptual implementation is:
 
 ```c
-volatile uint8_t ws2812_done = 0;
+volatile uint8_t _dma_done = 0;
 
 void WS2812_Show(void)
 {
     uint16_t pwm_index = 0;
 
-    ws2812_done = 0;
+    _dma_done = 0;
 
     // Leading low period
     pwm_buffer[pwm_index++] = 0;
@@ -427,7 +427,7 @@ void WS2812_Show(void)
         pwm_index
     );
 
-    while (!ws2812_done)
+    while (!_dma_done)
     {
     }
 }
@@ -440,14 +440,14 @@ void HAL_TIM_PWM_PulseFinishedCallback(TIM_HandleTypeDef *htim)
 {
     if (htim->Instance == TIM1)
     {
-        ws2812_done = 1;
+        _dma_done = 1;
     }
 }
 ```
 
 The callback is associated with completion of the DMA-driven PWM transfer, not with every individual PWM period.
 
-The `volatile` keyword is important because `ws2812_done` is modified from interrupt/callback context while it is read by the main code.
+The `volatile` keyword is important because `_dma_done` is modified from interrupt/callback context while it is read by the main code.
 
 Because the reset zeros are included in the DMA buffer, the callback occurs only after the reset/latch period has also been transmitted.
 
